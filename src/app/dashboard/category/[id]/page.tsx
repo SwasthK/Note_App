@@ -1,4 +1,4 @@
-"use client"; // If you need to use client-side hooks
+"use client";
 
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useTags } from "@/lib/hooks/useTags";
@@ -8,15 +8,16 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 interface CategoryPageProps {
-  params: {
-    id: string;
+  params: { 
+    id: string; // This will be inferred automatically by Next.js
   };
 }
 
 const CategoryPage = ({ params }: CategoryPageProps) => {
+  const { id } = params; // Accessing the `id` parameter from `params`
   const { tags: tag, isLoading: tagLoading } = useTags();
   const { data: notes = [], isLoading: notesLoading } = useNotes({
-    tagId: params.id,
+    tagId: id,
   });
 
   if (tagLoading || notesLoading) {
@@ -67,6 +68,7 @@ const CategoryPage = ({ params }: CategoryPageProps) => {
       </div>
     </div>
   );
-};
+}
+
 
 export default CategoryPage;
