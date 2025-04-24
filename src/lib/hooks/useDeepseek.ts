@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 
+
+
 export function useOpenRouter() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [debugInfo, setDebugInfo] = useState(null)
+
 
   const summarize = async (text: string) => {
     setIsLoading(true)
     setError(null)
-    setDebugInfo(null)
+
     
     try {
       const apiKey = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY
@@ -55,19 +57,6 @@ export function useOpenRouter() {
       console.log('API Response:', responseText)
 
       // Store the debug info for troubleshooting
-      try {
-        setDebugInfo({
-          status: response.status,
-          responseText: responseText,
-          parsed: responseText ? JSON.parse(responseText) : null
-        })
-      } catch (parseError) {
-        setDebugInfo({
-          status: response.status,
-          responseText: responseText,
-          parseError: (parseError as Error).message
-        })
-      }
 
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}: ${responseText}`)
@@ -132,6 +121,5 @@ export function useOpenRouter() {
     summarizeFallback,
     isLoading,
     error,
-    debugInfo
   }
 }

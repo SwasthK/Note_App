@@ -1,12 +1,17 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useCreateTag, useDeleteTag } from '@/lib/hooks/useTags'
-import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useCreateTag, useDeleteTag } from "@/lib/hooks/useTags";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,42 +21,41 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 interface CreateTagDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function CreateTagDialog({ open, onOpenChange }: CreateTagDialogProps) {
-  const [name, setName] = useState('')
-  const [color, setColor] = useState('#000000')
-  const { mutate: createTag, isLoading } = useCreateTag()
-
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("#000000");
+  const { mutate: createTag } = useCreateTag();
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     if (!name) {
-      toast.error('Please enter a category name')
-      return
+      toast.error("Please enter a category name");
+      return;
     }
 
     createTag(
       { name, color },
       {
         onSuccess: () => {
-          toast.success('Category created successfully')
-          onOpenChange(false)
-          setName('')
-          setColor('#000000')
+          toast.success("Category created successfully");
+          onOpenChange(false);
+          setName("");
+          setColor("#000000");
         },
         onError: () => {
-          toast.error('Failed to create category')
+          toast.error("Failed to create category");
         },
-      }
-    )
-  }
+      },
+    );
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -71,9 +75,9 @@ export function CreateTagDialog({ open, onOpenChange }: CreateTagDialogProps) {
                 type="color"
                 value={color}
                 onChange={(e) => setColor(e.target.value)}
-                className="w-20 h-10 p-1"
+                className="h-10 w-20 p-1"
               />
-              <span className="text-sm text-muted-foreground">
+              <span className="text-muted-foreground text-sm">
                 Choose category color
               </span>
             </div>
@@ -86,29 +90,26 @@ export function CreateTagDialog({ open, onOpenChange }: CreateTagDialogProps) {
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Create Category
-            </Button>
+            <Button type="submit">Create Category</Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
-export function DeleteTagDialog({ 
-  open, 
-  onOpenChange, 
-  tagId, 
-  tagName 
-}: { 
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  tagId: string
-  tagName: string
+export function DeleteTagDialog({
+  open,
+  onOpenChange,
+  tagId,
+  tagName,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  tagId: string;
+  tagName: string;
 }) {
-  const deleteTag = useDeleteTag()
+  const deleteTag = useDeleteTag();
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -116,7 +117,8 @@ export function DeleteTagDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete category</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete the category &rdquo;{tagName}&rdquo;? This will remove the category from all associated notes.
+            Are you sure you want to delete the category &rdquo;{tagName}
+            &rdquo;? This will remove the category from all associated notes.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -130,5 +132,5 @@ export function DeleteTagDialog({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
-} 
+  );
+}

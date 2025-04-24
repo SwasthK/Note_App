@@ -53,11 +53,11 @@ export function useCreateNote() {
   const queryClient = useQueryClient()
   const supabase = createClientComponentClient()
 
-  return useMutation({
-    mutationFn: async (note: { 
+  const mutation = useMutation({
+    mutationFn: async (note: {
       title: string
       content: string
-      tag_id: string | null 
+      tag_id: string | null
     }) => {
       const { data, error } = await supabase
         .from('notes')
@@ -72,12 +72,18 @@ export function useCreateNote() {
         console.error('Supabase error:', error)
         throw error
       }
+
       return data
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] })
     },
   })
+
+  return {
+    ...mutation,
+    isLoading: mutation.isPending, // ✅ alias for consistency with queries
+  }
 }
 
 export function useUpdateNote() {

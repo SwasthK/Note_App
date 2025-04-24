@@ -232,7 +232,7 @@ export function NoteCard({ note, viewMode }: NoteCardProps) {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                deleteNote.mutate(note.id, {
+                deleteNote(note.id, {
                   onSuccess: () => {
                     toast.success('Note deleted')
                     setShowDeleteDialog(false)

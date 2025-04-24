@@ -26,7 +26,7 @@ interface TagSelectorProps {
 
 export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
   const [open, setOpen] = useState(false)
-  const { data: tags = [] } = useTags()
+  const { tags: tags = [] } = useTags()
 
   return (
     <div className="flex flex-wrap gap-2">

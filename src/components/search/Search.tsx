@@ -5,8 +5,9 @@ import { Search as SearchIcon } from "lucide-react"
 
 interface SearchProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: string
-  onChange: (value: string) => void
+  onValueChange: (value: string) => void
 }
+
 
 export function Search({ value, onChange, className, ...props }: SearchProps) {
   return (
@@ -16,7 +17,7 @@ export function Search({ value, onChange, className, ...props }: SearchProps) {
         type="search"
         placeholder="Search notes..."
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         className={`pl-8 ${className}`}
         {...props}
       />

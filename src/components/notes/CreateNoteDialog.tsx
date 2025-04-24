@@ -28,7 +28,7 @@ export function CreateNoteDialog({ open, onOpenChange }: CreateNoteDialogProps) 
   const [content, setContent] = useState('')
   const [selectedTag, setSelectedTag] = useState<string>('')
   const router = useRouter()
-  const { data: tags = [] } = useTags()
+  const { tags: tags = [] } = useTags()
   const { mutate: createNote, isLoading } = useCreateNote()
 
   const handleSubmit = (e: React.FormEvent) => {
