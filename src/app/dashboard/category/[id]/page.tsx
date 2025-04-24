@@ -1,26 +1,28 @@
-'use client'
+"use client";
 
-import { useNotes } from "@/lib/hooks/useNotes"
-import { useTags } from "@/lib/hooks/useTags"
-import { NoteCard } from "@/components/notes/NoteCard"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { useNotes } from "@/lib/hooks/useNotes";
+import { useTags } from "@/lib/hooks/useTags";
+import { NoteCard } from "@/components/notes/NoteCard";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
-export default function CategoryPage({ params }: { params: { id: string } }) {
-  const { data: tag, isLoading: tagLoading } = useTags()
-  const { data: notes = [], isLoading: notesLoading } = useNotes({ tagId: params.id })
+export default function CategoryPage({ params }: any) {
+  const { data: tag, isLoading: tagLoading }: any = useTags();
+  const { data: notes = [], isLoading: notesLoading } = useNotes({
+    tagId: params.id,
+  });
 
   if (tagLoading || notesLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (!tag) {
-    return <div>Category not found</div>
-  } 
+    return <div>Category not found</div>;
+  }
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8">
+    <div className="container mx-auto max-w-7xl px-4 py-8">
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -40,11 +42,11 @@ export default function CategoryPage({ params }: { params: { id: string } }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {notes.length > 0 ? (
             notes.map((note) => (
               <Link key={note.id} href={`/dashboard/notes/${note.id}`}>
-                <NoteCard note={note} />
+                <NoteCard viewMode="grid" note={note} />
               </Link>
             ))
           ) : (
@@ -58,5 +60,5 @@ export default function CategoryPage({ params }: { params: { id: string } }) {
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}
