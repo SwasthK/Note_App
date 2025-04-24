@@ -126,7 +126,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredNotes.map((note) => (
                 <Link key={note.id} href={`/dashboard/notes/${note.id}`}>
-                  <NoteCard note={note} />
+                  <NoteCard viewMode="grid" note={note} />
                 </Link>
               ))}
             </div>
