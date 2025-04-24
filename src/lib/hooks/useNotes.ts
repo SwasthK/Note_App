@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Note } from '../types'
 
 export function useNotes(options?: { tagId?: string }) {
   const supabase = createClientComponentClient()
