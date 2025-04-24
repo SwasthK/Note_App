@@ -6,14 +6,21 @@ import { NoteCard } from "@/components/notes/NoteCard";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { NextPage } from "next";
 
 interface CategoryPageProps {
   params: {
-    id: string; 
+    id: string;
   };
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+interface CategoryPageProps {
+  params: {
+    id: string; // Adjust this based on how `id` is passed in the URL
+  };
+}
+
+export const CategoryPage: NextPage<CategoryPageProps> = ({ params }) => {
   const { tags: tag, isLoading: tagLoading } = useTags();
   const { data: notes = [], isLoading: notesLoading } = useNotes({
     tagId: params.id,
@@ -67,4 +74,4 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       </div>
     </div>
   );
-}
+};
