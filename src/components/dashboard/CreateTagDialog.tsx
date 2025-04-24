@@ -116,7 +116,7 @@ export function DeleteTagDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Delete category</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete the category "{tagName}"? This will remove the category from all associated notes.
+            Are you sure you want to delete the category &rdquo;{tagName}&rdquo;? This will remove the category from all associated notes.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

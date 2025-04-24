@@ -15,7 +15,6 @@ import {
   Sun,
   Moon,
   Menu,
-  Plus,
   LogOut,
   User,
 } from 'lucide-react'

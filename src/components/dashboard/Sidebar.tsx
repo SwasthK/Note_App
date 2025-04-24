@@ -7,13 +7,10 @@ import { cn } from '@/lib/utils'
 import {
   LayoutDashboard,
   PenSquare,
-  Archive,
-  Star,
   ChevronLeft,
   ChevronRight,
   Plus,
   ChevronDown,
-  BookTemplate,
   Trash2,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -26,7 +23,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { toast } from 'sonner'
 import { Tag } from '@/lib/types'
 
 
@@ -34,8 +30,7 @@ export function Sidebar() {
   const pathname = usePathname()
   const [isTagDialogOpen, setIsTagDialogOpen] = useState(false)
   const [tagToDelete, setTagToDelete] = useState<{ id: string; name: string } | null>(null)
-  const { tags = [], deleteTag } = useTags()
-  const [templatesOpen, setTemplatesOpen] = useState(false)
+  const { tags = [] } = useTags()
   const [categoriesOpen, setCategoriesOpen] = useState(true)
   
   // Add sidebar collapse state

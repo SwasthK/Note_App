@@ -19,7 +19,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { useState } from "react"
-import { Badge } from "@/components/ui/badge"
 
 export default function ProfilePage() {
   const router = useRouter()

@@ -46,8 +46,6 @@ export function NoteEditor({ initialData }: NoteEditorProps) {
     summarize, 
     summarizeFallback, 
     isLoading: isSummarizing, 
-    error: summarizeError,
-    debugInfo 
   } = useOpenRouter()
 
   const { mutate: createNote, isPending: isCreating } = useCreateNote()

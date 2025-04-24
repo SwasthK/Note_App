@@ -21,7 +21,7 @@ export default function Notes() {
 
   useEffect(() => {
     fetchNotes()
-  }, [])
+  })
 
   async function fetchNotes() {
     const { data: notes, error } = await supabase

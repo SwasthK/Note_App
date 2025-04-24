@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation'
 import { useNote } from '@/lib/hooks/useNotes'
 import { useState } from 'react'
-import { useUpdateNote, useDeleteNote } from '@/lib/hooks/useNotes'
+import { useDeleteNote } from '@/lib/hooks/useNotes'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Edit, Trash2, ArrowLeft } from 'lucide-react'
 import { DeleteNoteDialog } from '@/components/notes/DeleteNoteDialog'
 import { Loading } from '@/components/ui/loading'
@@ -16,7 +16,6 @@ export default function NotePage({ params }: { params: { id: string } }) {
   const { id } = params // ✅ destructure here normally
   const { data: note, isLoading } = useNote(id)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const updateNote = useUpdateNote()
   const deleteNote = useDeleteNote()
 
   if (isLoading) {

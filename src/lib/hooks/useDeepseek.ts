@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 export function useOpenRouter() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [debugInfo, setDebugInfo] = useState<any>(null)
+  const [debugInfo, setDebugInfo] = useState(null)
 
   const summarize = async (text: string) => {
     setIsLoading(true)

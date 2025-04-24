@@ -4,22 +4,16 @@ import { useState } from 'react'
 import { format } from 'date-fns'
 import { 
   MoreHorizontal, 
-  Clock, 
   Star, 
   Archive, 
   Trash2,
   ExternalLink,
   MoreVertical,
   Trash,
-  Edit
 } from 'lucide-react'
 import { Note } from '@/lib/types'
 import {
   Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card'
 import {
   DropdownMenu,
@@ -43,7 +37,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 
 interface NoteCardProps {
@@ -57,20 +50,7 @@ export function NoteCard({ note, viewMode }: NoteCardProps) {
   const { mutate: updateNote } = useUpdateNote()
   const [isDeleting, setIsDeleting] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setIsDeleting(true)
-    deleteNote(note.id, {
-      onSuccess: () => {
-        toast.success('Note deleted')
-      },
-      onError: () => {
-        toast.error('Failed to delete note')
-      },
-      onSettled: () => setIsDeleting(false)
-    })
-  }
+  console.log(setIsDeleting)
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation()
