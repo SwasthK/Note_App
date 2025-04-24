@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateTag, useDeleteTag } from "@/lib/hooks/useTags";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
