@@ -72,3 +72,9 @@
 
 
 // export default CategoryPage;
+
+export default function Category(){
+  return <div>
+    <p>Bad Request</p>
+  </div>
+}
