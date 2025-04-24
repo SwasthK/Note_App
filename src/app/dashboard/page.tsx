@@ -1,72 +1,80 @@
-'use client'
+"use client";
 
-import { NoteCard } from "@/components/notes/NoteCard"
-import { useNotes } from "@/lib/hooks/useNotes"
-import { useStore } from "@/lib/store/useStore"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-import Link from "next/link"
+import { NoteCard } from "@/components/notes/NoteCard";
+import { useNotes } from "@/lib/hooks/useNotes";
+import { useStore } from "@/lib/store/useStore";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function DashboardPage() {
-  const { data: notes = [], isLoading } = useNotes()
-  const activeTab = useStore(state => state.activeTab)
-  const setActiveTab = useStore(state => state.setActiveTab)
-  const searchQuery = useStore(state => state.searchQuery)
-  const sortBy = useStore(state => state.sortBy)
-  const setSortBy = useStore(state => state.setSortBy)
+  const { data: notes = [], isLoading } = useNotes();
+  const activeTab = useStore((state) => state.activeTab);
+  const setActiveTab = useStore((state) => state.setActiveTab);
+  const searchQuery = useStore((state) => state.searchQuery);
+  const sortBy = useStore((state) => state.sortBy);
+  const setSortBy = useStore((state) => state.setSortBy);
 
   // Filter and sort notes
   const filteredNotes = notes
-    .filter(note => {
+    .filter((note) => {
       // First apply search filter
       if (searchQuery) {
-        const searchLower = searchQuery.toLowerCase()
-        return note.title.toLowerCase().includes(searchLower) ||
-               note.content.toLowerCase().includes(searchLower)
+        const searchLower = searchQuery.toLowerCase();
+        return (
+          note.title.toLowerCase().includes(searchLower) ||
+          note.content.toLowerCase().includes(searchLower)
+        );
       }
-      return true
+      return true;
     })
-    .filter(note => {
+    .filter((note) => {
       // Then apply tab filter
       switch (activeTab) {
-        case 'favorites':
-          return note.is_pinned
-        case 'archived':
-          return note.is_archived === true // Explicit comparison
-        case 'all':
+        case "favorites":
+          return note.is_pinned;
+        case "archived":
+          return note.is_archived === true; // Explicit comparison
+        case "all":
         default:
-          return !note.is_archived // Show only non-archived notes in All
+          return !note.is_archived; // Show only non-archived notes in All
       }
     })
     .sort((a, b) => {
       // Finally apply sorting
       switch (sortBy) {
-        case 'oldest':
-          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        case 'title':
-          return a.title.localeCompare(b.title)
-        case 'updated':
-          return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
-        case 'newest':
+        case "oldest":
+          return (
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+          );
+        case "title":
+          return a.title.localeCompare(b.title);
+        case "updated":
+          return (
+            new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+          );
+        case "newest":
         default:
-          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
       }
-    })
+    });
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-3.5rem)]">
+    <div className="flex min-h-[calc(100vh-3.5rem)] flex-col">
       <div className="flex-1 py-6">
-        <div className="container max-w-7xl mx-auto px-4">
+        <div className="container mx-auto max-w-7xl px-4">
           {/* Header Section */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="mb-6 flex items-center justify-between">
             <h1 className="text-2xl font-bold">My Notes</h1>
             <Button asChild>
               <Link href="/dashboard/notes/new">
@@ -77,9 +85,12 @@ export default function DashboardPage() {
           </div>
 
           {/* Navigation and Sorting Section */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full sm:w-auto">
-              <TabsList className="w-full sm:w-auto grid grid-cols-3 sm:flex">
+          <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab as (value: string) => void}
+            >
+              <TabsList className="grid w-full grid-cols-3 sm:flex sm:w-auto">
                 <TabsTrigger value="all">All Notes</TabsTrigger>
                 <TabsTrigger value="favorites">Favorites</TabsTrigger>
                 <TabsTrigger value="archived">Archived</TabsTrigger>
@@ -101,13 +112,18 @@ export default function DashboardPage() {
 
           {/* Notes Grid */}
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Array(6).fill(0).map((_, i) => (
-                <div key={i} className="h-[200px] rounded-lg animate-pulse bg-zinc-800/50" />
-              ))}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {Array(6)
+                .fill(0)
+                .map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-[200px] animate-pulse rounded-lg bg-zinc-800/50"
+                  />
+                ))}
             </div>
           ) : filteredNotes.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredNotes.map((note) => (
                 <Link key={note.id} href={`/dashboard/notes/${note.id}`}>
                   <NoteCard note={note} />
@@ -117,9 +133,13 @@ export default function DashboardPage() {
           ) : (
             <div className="flex flex-col items-center justify-center py-12 text-zinc-400">
               <p className="text-lg">
-                {activeTab === 'archived' ? 'No archived notes' :
-                 activeTab === 'favorites' ? 'No favorite notes' :
-                 searchQuery ? 'No notes match your search' : 'No notes found'}
+                {activeTab === "archived"
+                  ? "No archived notes"
+                  : activeTab === "favorites"
+                    ? "No favorite notes"
+                    : searchQuery
+                      ? "No notes match your search"
+                      : "No notes found"}
               </p>
               <Button asChild variant="outline" className="mt-4">
                 <Link href="/dashboard/notes/new">Create your first note</Link>
@@ -129,5 +149,5 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}
