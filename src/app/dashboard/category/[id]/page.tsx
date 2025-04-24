@@ -7,8 +7,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default function CategoryPage({ params }: any) {
-  const { data: tag, isLoading: tagLoading }: any = useTags();
+interface CategoryPageProps {
+  params: {
+    id: string; 
+  };
+}
+
+export default function CategoryPage({ params }: CategoryPageProps) {
+  const { tags: tag, isLoading: tagLoading } = useTags();
   const { data: notes = [], isLoading: notesLoading } = useNotes({
     tagId: params.id,
   });
@@ -35,9 +41,9 @@ export default function CategoryPage({ params }: any) {
             <div className="flex items-center gap-2">
               <div
                 className="h-3 w-3 rounded-full"
-                style={{ backgroundColor: tag.color }}
+                style={{ backgroundColor: tag[0].color }}
               />
-              <h1 className="text-2xl font-bold">{tag.name}</h1>
+              <h1 className="text-2xl font-bold">{tag[0].name}</h1>
             </div>
           </div>
         </div>
