@@ -11,15 +11,9 @@ import { Edit, Trash2, ArrowLeft } from 'lucide-react'
 import { DeleteNoteDialog } from '@/components/notes/DeleteNoteDialog'
 import { Loading } from '@/components/ui/loading'
 
-import { use } from "react";
-
-export default function NotePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = use(params);
+export default async function NotePage({ params }: { params: { id: string } }) {
   const router = useRouter()
+  const { id } = params // ✅ destructure here normally
   const { data: note, isLoading } = useNote(id)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
   const deleteNote = useDeleteNote()
