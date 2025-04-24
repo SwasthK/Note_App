@@ -1,4 +1,4 @@
-"use client";
+"use client"; // If you need to use client-side hooks
 
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useTags } from "@/lib/hooks/useTags";
@@ -6,7 +6,6 @@ import { NoteCard } from "@/components/notes/NoteCard";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { NextPage } from "next";
 
 interface CategoryPageProps {
   params: {
@@ -14,13 +13,7 @@ interface CategoryPageProps {
   };
 }
 
-interface CategoryPageProps {
-  params: {
-    id: string; // Adjust this based on how `id` is passed in the URL
-  };
-}
-
-export const CategoryPage: NextPage<CategoryPageProps> = ({ params }) => {
+const CategoryPage = ({ params }: CategoryPageProps) => {
   const { tags: tag, isLoading: tagLoading } = useTags();
   const { data: notes = [], isLoading: notesLoading } = useNotes({
     tagId: params.id,
@@ -75,3 +68,5 @@ export const CategoryPage: NextPage<CategoryPageProps> = ({ params }) => {
     </div>
   );
 };
+
+export default CategoryPage;
